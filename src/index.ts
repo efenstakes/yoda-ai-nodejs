@@ -1,4 +1,3 @@
-import OpenAI from 'openai';
 import dotenv from 'dotenv'
 import path from 'path'
 import express from 'express'
@@ -7,6 +6,7 @@ import express from 'express'
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 
 // create express app
@@ -19,12 +19,16 @@ app.use(express.json())
 dotenv.config({ path: path.join(__dirname, ".env") })
 console.log("OPENAPI_KEY ", process.env.OPENAPI_KEY);
 
-// initialize openai
-const openai = new OpenAI({
-  apiKey: process.env.OPENAPI_KEY, // defaults to process.env["OPENAI_API_KEY"]
-});
 
 
+// handle index route
+app.get("/", async (_req, res)=> {
+
+    res.json({
+        apiName: "Yoda AI",
+        status: 'running',
+    })
+})
 
 
 // start express server
