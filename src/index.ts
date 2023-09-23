@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import path from 'path'
 import express from 'express'
 import morgan from 'morgan';
+import serverless from 'serverless-http'
 
 // fix __dirname not defined error
 import { fileURLToPath } from 'url';
@@ -25,6 +26,7 @@ app.use(morgan('dev'))
 // get environment vars
 dotenv.config({ path: path.join(__dirname, ".env") })
 console.log("OPENAPI_KEY ", process.env.OPENAPI_KEY);
+console.log("ENVIRONMENT ", process.env.ENVIRONMENT);
 
 
 
@@ -41,9 +43,16 @@ app.get("/", async (_req, res)=> {
 app.use("/prompts", promptsRouter.default)
 
 
-// start express server
-const PORT = process.env.PORT || 8080
-app.listen(PORT, ()=> {
 
-    console.log(`Yoda AI Started on PORT ${PORT}`)
-})
+// serverless handler
+export const handler = serverless(app)
+
+// start express server if in dev environment
+if( process.env.ENVIRONMENT == "DEV" ) {
+
+    const PORT = process.env.PORT || 9090
+    app.listen(PORT, ()=> {
+
+        console.log(`Yoda AI Started on PORT ${PORT}`)
+    })
+}
