@@ -8,10 +8,10 @@
     "dev": "cp ./src/.env ./build/.env & tsc --watch & nodemon ./build/index.js",
     "dev:start": "tsc --watch & nodemon ./build/index.js",
     "start": "node ./build/index.js",
-    "build": "tsc -p .",
-    "build:local": "yarn build && cp ./src/.env ./build/.env",
-    "deploy": "yarn build && serverless deploy",
-    "live": "yarn deploy"
+    "build": "cp ./src/.env ./build/.env & tsc -p .",
+    "build:local": "npm run build && cp ./src/.env ./build/.env",
+    "deploy": "npm run build && serverless deploy",
+    "live": "npm run deploy"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
     "express": "^4.18.2",
     "morgan": "^1.10.0",
     "openai": "^4.10.0",
+    "serverless-http": "^3.2.0",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
