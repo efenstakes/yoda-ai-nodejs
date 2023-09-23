@@ -2,11 +2,16 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "./build/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "cp ./src/.env ./build & tsc --watch & nodemon ./build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cp ./src/.env ./build/.env & tsc --watch & nodemon ./build/index.js",
+    "dev:start": "tsc --watch & nodemon ./build/index.js",
+    "start": "node ./build/index.js",
+    "build": "tsc -p .",
+    "build:local": "yarn build && cp ./src/.env ./build/.env",
+    "deploy": "yarn build && serverless deploy",
+    "live": "yarn deploy"
   },
   "keywords": [],
   "author": "",
