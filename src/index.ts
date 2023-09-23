@@ -7,6 +7,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// routes
+import * as promptsRouter from './prompt/routes.js';
 
 
 // create express app
@@ -29,6 +31,9 @@ app.get("/", async (_req, res)=> {
         status: 'running',
     })
 })
+
+// handle prompt requests
+app.use("/prompts", promptsRouter.default)
 
 
 // start express server
