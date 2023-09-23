@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import path from 'path'
 import express from 'express'
+import morgan from 'morgan';
 
 // fix __dirname not defined error
 import { fileURLToPath } from 'url';
@@ -16,6 +17,10 @@ const app = express()
 
 // ensure request body is processed well
 app.use(express.json())
+
+// show request logs
+app.use(morgan('dev'))
+
 
 // get environment vars
 dotenv.config({ path: path.join(__dirname, ".env") })
